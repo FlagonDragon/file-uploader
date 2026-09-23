@@ -1,0 +1,28 @@
+<html>
+
+  <head>
+      <title>My App</title>
+      <link type="text/css" href="/css/styles.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <h2>Info:</h2>
+
+      <% data.forEach(item => { %>
+
+          <p>
+            mydata: <%=item.mydata%> (id: <%=item.id%>)
+          </p>
+
+        </a>
+
+      <% }); %>
+
+    </div>
+    
+  </body>
+
+</html>

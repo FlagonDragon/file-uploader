@@ -1,0 +1,32 @@
+npm init -y
+
+npm install express ejs express-validator pg dotenv express-session passport passport-local
+
+psql
+
+CREATE DATABASE my_database;
+
+\c my_database;
+
+CREATE TABLE mytable (
+   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+   mydata VARCHAR ( 255 )
+);
+
+INSERT INTO mytable (mydata)
+VALUES 
+  ('data 1'),
+  ('data 2');
+
+SELECT * FROM mytable;
+
+node --watch app.js
+
+ctrl+c
+
+.env:
+
+PGUSER=''
+PGPASSWORD=''
+PGHOST=''
+PGDATABASE= ''
