@@ -40,7 +40,9 @@ const signUpPost = [
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        await db.insertUser(fullname, username, hashedPassword);
+        // await db.insertUser(fullname, username, hashedPassword);
+
+        await db.createUser();
 
         res.redirect("/");
 
