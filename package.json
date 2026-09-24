@@ -18,6 +18,8 @@
   "homepage": "https://github.com/FlagonDragon/file-uploader#readme",
   "description": "",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
     "bcryptjs": "^3.0.3",
     "dotenv": "^18.0.3",
     "ejs": "^6.0.1",
@@ -27,5 +29,8 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "prisma": "^7.10.0"
   }
 }
