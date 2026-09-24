@@ -6,6 +6,7 @@ router.get("/", controller.homeGet);
 
 router.get("/info", controller.infoGet);
 
+router.get("/log-in", controller.logInGet);
 
 
 module.exports = router;

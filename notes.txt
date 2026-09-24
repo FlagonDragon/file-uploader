@@ -4,6 +4,8 @@ npm install express ejs express-validator pg dotenv express-session passport pas
 
 psql
 
+(database not necessary if using default mem_only database in local psql)
+
 CREATE DATABASE my_database;
 
 \c my_database;

@@ -14,9 +14,14 @@ async function infoGet(req, res) {
 
 };
 
+function logInGet(req, res) {
 
+    res.render("logInView", { user: req.user });
+
+};
 
 module.exports = {
     homeGet,
-    infoGet
+    infoGet,
+    logInGet
 };
