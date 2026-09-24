@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link type="text/css" href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <h1>Sign Up</h1>
+
+  <%- include("partials/errors.ejs") %>
+
+  <form action="/sign-up" method="POST">
+    <label for="fullname">Full name</label>
+    <input id="fullname" name="fullname" placeholder="fullname" type="text" />
+    <label for="username">Email</label>
+    <input id="username" name="username" placeholder="email" type="email" />
+    <label for="password">Password</label>
+    <input id="password" name="password" placeholder="password" type="password" />
+    <label for="passwordConfirmation">Confirm password</label>
+    <input id="passwordConfirmation" name="passwordConfirmation" placeholder="password" type="password" />
+    <button type="submit">Sign Up</button>
+  </form>
+</body>
+</html>

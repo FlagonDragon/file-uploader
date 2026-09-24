@@ -1,4 +1,6 @@
 const db = require("../db/queries");
+const bcrypt = require("bcryptjs");
+const { body, validationResult, matchedData } = require("express-validator");
 
 function homeGet(req, res) {
 
@@ -14,6 +16,37 @@ async function infoGet(req, res) {
 
 };
 
+function signUpGet(req, res) {
+
+    res.render("signUpView");
+
+};
+
+const signUpPost = [
+    validateUser = [body("fullname").trim().isLength({ max: 50 }).withMessage(`Name must be at most 50 characters`),
+  body("username").trim().isLength({ min: 6, max: 50 }).withMessage(`Email must be between 6 and 50 characters.`),
+  body("password").trim().isLength({ max: 50 }).withMessage(`Password must be at most 50 characters`)],
+    async (req, res) => {
+
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+
+            return res.status(400).render("signUpView", {errors: errors.array()});
+
+        }
+
+        const { fullname, username, password } = matchedData(req);
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await db.insertUser(fullname, username, hashedPassword);
+
+        res.redirect("/");
+
+    }
+];
+
 function logInGet(req, res) {
 
     res.render("logInView", { user: req.user });
@@ -23,5 +56,7 @@ function logInGet(req, res) {
 module.exports = {
     homeGet,
     infoGet,
+    signUpGet,
+    signUpPost,
     logInGet
 };
