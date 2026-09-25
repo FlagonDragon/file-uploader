@@ -1,17 +1,23 @@
-const express = require("express");
-const path = require("node:path");
-const router = require("./routes/router");
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
-const session = require("express-session");
-const passport = require("passport");
+import express from "express";
+import path from "node:path";
+import router from "./routes/router.js";
+
+import session from "express-session";
+import passport from "passport";
+
+;
 const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require("bcryptjs");
+
+import bcrypt from "bcryptjs";
 import { pool } from "./db/pool.js";
 
 const app = express();
 
 app.use('/css',express.static('public' +'/css'));
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(import.meta.dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));

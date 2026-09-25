@@ -8,7 +8,7 @@ dotenv.config();
 const pool = new pg.Pool({
   host: "localhost",
   user: "vmuser",
-  database: "mem_only",
+  database: "file_upl",
   password: "1",
   port: 5432
 });
