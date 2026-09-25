@@ -12,5 +12,7 @@ router.post("/sign-up", body('passwordConfirmation').custom((value, { req }) => 
 
 router.get("/log-in", controller.logInGet);
 
+router.get("/log-out", controller.logOutGet);
+
 
 module.exports = router;
