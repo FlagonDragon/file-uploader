@@ -65,11 +65,25 @@ function logOutGet(req, res, next) {
 
 };
 
+function uploadGet(req, res) {
+
+    res.render("uploadView", { user: req.user });
+
+};
+
+function uploadPost(req, res) {
+
+    res.send('Uploaded!');
+
+};
+
 module.exports = {
     homeGet,
     infoGet,
     signUpGet,
     signUpPost,
     logInGet,
-    logOutGet
+    logOutGet,
+    uploadGet,
+    uploadPost
 };

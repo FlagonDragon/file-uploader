@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link type="text/css" href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <h1>Upload</h1>
+
+  <%- include("partials/errors.ejs") %>
+
+  <form action="/upload" method="POST">
+    <label for="username">Username</label>
+    <input id="username" name="username" placeholder="username" type="text" />
+    <label for="password">Password</label>
+    <input id="password" name="password" placeholder="password" type="password" />
+    <label for="passwordConfirmation">Confirm password</label>
+    <input id="passwordConfirmation" name="passwordConfirmation" placeholder="password" type="password" />
+    <button type="submit">Upload</button>
+  </form>
+</body>
+</html>

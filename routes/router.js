@@ -14,5 +14,9 @@ router.get("/log-in", controller.logInGet);
 
 router.get("/log-out", controller.logOutGet);
 
+router.get("/upload", controller.uploadGet);
+router.post("/upload", controller.uploadPost);
+
+
 
 module.exports = router;
