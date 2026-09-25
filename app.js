@@ -7,8 +7,9 @@ import router from "./routes/router.js";
 
 import session from "express-session";
 import passport from "passport";
+import { prisma } from "./lib/prisma.js"
+const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 
-;
 const LocalStrategy = require('passport-local').Strategy;
 
 import bcrypt from "bcryptjs";
@@ -25,6 +26,25 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/", router);
+
+app.use(
+  session({
+    cookie: {
+     maxAge: 7 * 24 * 60 * 60 * 1000 // ms
+    },
+    secret: 'a santa at nasa',
+    resave: true,
+    saveUninitialized: true,
+    store: new PrismaSessionStore(
+      prisma,
+      {
+        checkPeriod: 2 * 60 * 1000,  //ms
+        dbRecordIdIsSessionId: true,
+        dbRecordIdFunction: undefined,
+      }
+    )
+  })
+);
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
