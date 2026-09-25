@@ -6,7 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require("bcryptjs");
-const pool = require("./db/pool");
+import { pool } from "./db/pool.js";
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use("/", router);
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const { rows } = await pool.query("SELECT * FROM userbase WHERE username = $1", [username]);
+      const { rows } = await pool.query('SELECT * FROM "User" WHERE username = $1', [username]);
       const user = rows[0];
 
       if (!user) {
@@ -47,7 +47,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const { rows } = await pool.query("SELECT * FROM userbase WHERE id = $1", [id]);
+    const { rows } = await pool.query('SELECT * FROM "User" WHERE id = $1', [id]);
     const user = rows[0];
 
     done(null, user);

@@ -23,8 +23,7 @@ function signUpGet(req, res) {
 };
 
 const signUpPost = [
-    validateUser = [body("fullname").trim().isLength({ max: 50 }).withMessage(`Name must be at most 50 characters`),
-  body("username").trim().isLength({ min: 6, max: 50 }).withMessage(`Email must be between 6 and 50 characters.`),
+    validateUser = [body("username").trim().isLength({ max: 50 }).withMessage(`Username must be at most 50 characters`),
   body("password").trim().isLength({ max: 50 }).withMessage(`Password must be at most 50 characters`)],
     async (req, res) => {
 
@@ -36,13 +35,13 @@ const signUpPost = [
 
         }
 
-        const { fullname, username, password } = matchedData(req);
+        const { username, password } = matchedData(req);
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // await db.insertUser(fullname, username, hashedPassword);
 
-        await db.createUser();
+        await db.createUser(username, hashedPassword);
 
         res.redirect("/");
 
