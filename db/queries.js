@@ -37,5 +37,18 @@ async function createUser(username, password) {
   
 }
 
-export {getData, insertUser, createUser}
+async function getUsers() {
+
+  const users = await prisma.user.findMany();
+
+  return users;
+  
+}
+
+export {
+  getData, 
+  insertUser, 
+  createUser,
+  getUsers
+}
 

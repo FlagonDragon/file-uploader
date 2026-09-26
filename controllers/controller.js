@@ -2,9 +2,19 @@ const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
 const { body, validationResult, matchedData } = require("express-validator");
 
-function homeGet(req, res) {
+async function homeGet(req, res) {
 
-    res.send('Homepage');
+    const users = await db.getUsers();
+
+    users.forEach(user => {
+        console.log(user.username);
+    });
+
+    console.log(users);
+
+    // res.send('Homepage');
+
+    res.render("homeView", {data: users});
 
 };
 
@@ -73,7 +83,7 @@ function uploadGet(req, res) {
 
 function uploadPost(req, res) {
     
-    console.log(req.body);
+    console.log(req.file);
 
     res.status(200).send("file uploaded");
 
