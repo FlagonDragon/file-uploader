@@ -4,7 +4,25 @@ const router = Router();
 const { body, validationResult } = require("express-validator");
 
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+
+// Source - https://stackoverflow.com/a/40988346
+// Posted by VISHNU
+// Retrieved 2026-09-26, License - CC BY-SA 3.0
+
+// diskstorage function is used to customize file name so that it's composed of field name + file extension
+
+let storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    let extArray = file.mimetype.split("/");
+    let extension = extArray[extArray.length - 1];
+    cb(null, file.fieldname + '-' + Date.now()+ '.' +extension)
+  }
+})
+
+const upload = multer({ storage: storage })
 
 router.get("/", controller.homeGet);
 
