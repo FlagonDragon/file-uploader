@@ -72,8 +72,10 @@ function uploadGet(req, res) {
 };
 
 function uploadPost(req, res) {
+    
+    console.log(req.body);
 
-    res.send('Uploaded!');
+    res.status(200).send("file uploaded");
 
 };
 
