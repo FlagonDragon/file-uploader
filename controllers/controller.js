@@ -83,13 +83,40 @@ function uploadGet(req, res) {
 
 };
 
-function uploadPost(req, res) {
+const uploadPost = [
+    validateUser = [body("filename").trim().isLength({ max: 50 }).withMessage(`Filename must be at most 50 characters`)],
+    async (req, res) => {
+
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+
+            return res.status(400).render("uploadView", {errors: errors.array()});
+
+        }
+
+        const { filename } = matchedData(req);
+
+        //req.file to access file through multer middleware
+        //filename is direct from form body
     
-    console.log(req.file);
+        const filepath = req.file.path
+        console.log(filepath);
 
-    res.status(200).send("file uploaded");
+        const periodChar = filepath.indexOf(".");
+        
+        const filetype = filepath.slice(periodChar);
 
-};
+        console.log('filename:'+filename);
+
+        console.log('filepath:'+filetype);
+        
+        await db.createFile(filename, filetype);
+
+        res.status(200).send("file uploaded");
+
+    }
+];
 
 function addFolderGet(req, res) {
 

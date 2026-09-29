@@ -34,6 +34,7 @@ model Folder {
 model File {
   id    Int     @id @default(autoincrement()) 
   filename String 
+  filepath String 
   folder Folder @relation(fields: [folderId], references: [id])
   folderId Int
 }
