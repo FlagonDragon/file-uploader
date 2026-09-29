@@ -16,21 +16,31 @@ async function homeGet(req, res) {
 
     console.log(files);
 
-    res.render("homeView", { users: users, files: files, folders: folders });
+    res.render("homeView", { users: users, files: files, folders: folders, user: req.user });
 
 };
 
 async function infoGet(req, res) {
 
-    const data = await db.getData();
-    
-    res.render("homeView", {data: data});
+    const users = await db.getUsers();
+
+    const folders = await db.getFolders();
+
+    const files = await db.getFiles();
+
+    // users.forEach(user => {
+    //     console.log(user.username);
+    // });
+
+    console.log(files);
+
+    res.render("infoView", { users: users, files: files, folders: folders, user: req.user });
 
 };
 
 function signUpGet(req, res) {
 
-    res.render("signUpView");
+    res.render("signUpView", { user: req.user });
 
 };
 
@@ -145,6 +155,16 @@ const addFolderPost = [
     }
 ];
 
+async function folderGet(req, res) {
+
+    const { folderId } = req.params;
+
+    const folder = await db.getFolder(folderId);
+
+    res.render("folderView", { folder, folder, user: req.user });
+
+};
+
 module.exports = {
     homeGet,
     infoGet,
@@ -155,5 +175,6 @@ module.exports = {
     uploadGet,
     uploadPost,
     addFolderGet,
-    addFolderPost
+    addFolderPost,
+    folderGet
 };

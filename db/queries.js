@@ -2,14 +2,6 @@ import { pool } from "./pool.js";
 import { prisma } from "../lib/prisma.js";
 
 
-async function getData() {
-
-  const { rows } = await pool.query("SELECT * FROM mytable");
-
-  return rows;
-
-};
-
 async function insertUser(fullname, username, password) {
 
   await pool.query(`INSERT INTO userbase (fullname, username, password, membership)
@@ -80,6 +72,16 @@ async function createFolder(foldername) {
   
 }
 
+async function getFolder(folderId) {
+
+  const folder = await prisma.folder.findUnique({
+    where: { id: Number(folderId) }
+  });
+
+  return folder;
+  
+}
+
 async function getFolders() {
 
   const folders = await prisma.folder.findMany();
@@ -89,13 +91,13 @@ async function getFolders() {
 }
 
 export {
-  getData, 
   insertUser, 
   createUser,
   getUsers,
   createFile,
   getFiles,
   createFolder,
+  getFolder,
   getFolders
 }
 

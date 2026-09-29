@@ -41,6 +41,9 @@ router.post("/upload", upload.single('myfile'), controller.uploadPost);
 router.get("/add-folder", controller.addFolderGet);
 router.post("/add-folder", controller.addFolderPost);
 
+router.get("/folder/:folderId", controller.folderGet);
+
+
 
 
 module.exports = router;

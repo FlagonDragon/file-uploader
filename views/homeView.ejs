@@ -1,7 +1,7 @@
 <html>
 
   <head>
-      <title>My App</title>
+      <title>Homepage</title>
       <link type="text/css" href="/css/styles.css" rel="stylesheet">
   </head>
 
@@ -10,46 +10,13 @@
     <div class="container">
 
       <h2>Homepage</h2>
-
-      <h4>Users</h4>
-
-      <% users.forEach(user => { %>
-
-          <p>
-            username: <%=user.username%> (id: <%=user.id%>)
-          </p>
-
-        </a>
-
-      <% }); %>
-
-      <h4>Files</h4>
-
-      <% files.forEach(file => { %>
-
-          <p>
-            filename: <%=file.filename%> (id: <%=file.id%>)
-          </p>
-          <p>
-            filepath: <%=file.filepath%>
-          </p>
-          <p>
-            filetype: <%=file.filetype%>
-          </p>
-          <p>
-            folderid: <%=file.folderId%>
-          </p>
-
-        </a>
-
-      <% }); %>
-
+  
       <h4>Folders</h4>
 
       <% folders.forEach(folder => { %>
 
           <p>
-            foldername: <%=folder.foldername%> (id: <%=folder.id%>)
+            foldername: <a  href="/folder/<%=folder.id%>"><%=folder.foldername%></a> (id: <%=folder.id%>)
           </p>
 
         </a>
