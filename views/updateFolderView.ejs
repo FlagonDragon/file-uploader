@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update folder</title>
+  <link type="text/css" href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <h1>Update folder</h1>
+
+  <%- include("partials/errors.ejs") %>
+
+  <form action="/folder/<%=folderId%>/update" method="POST">
+    <label for="foldername">Folder Name:</label>
+    <input id="foldername" name="foldername" placeholder="Folder Name" type="text" />
+    <input type="hidden" name="folderId" id="folderId" value="<%=folderId%>">
+    <button type="submit">Update</button>
+  </form>
+
+</body>
+</html>

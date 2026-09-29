@@ -161,7 +161,29 @@ async function folderGet(req, res) {
 
     const folder = await db.getFolder(folderId);
 
-    res.render("folderView", { folder, folder, user: req.user });
+    console.log(folderId);
+
+    res.render("folderView", { folder: folder, folderId: folderId, user: req.user });
+
+};
+
+async function updateFolderGet(req, res) {
+
+    const { folderId } = req.params;
+
+    console.log(folderId);
+
+    res.render("updateFolderView", { folderId: folderId, user: req.user });
+
+};
+
+async function updateFolderPost(req, res) {
+
+    const { folderId, foldername } = req.body;
+
+    await db.updateFolder(folderId, foldername);
+
+    res.redirect("/")
 
 };
 
@@ -176,5 +198,7 @@ module.exports = {
     uploadPost,
     addFolderGet,
     addFolderPost,
-    folderGet
+    folderGet,
+    updateFolderGet,
+    updateFolderPost
 };

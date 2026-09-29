@@ -90,6 +90,15 @@ async function getFolders() {
   
 }
 
+async function updateFolder(folderId, foldername) {
+
+  await prisma.folder.update({
+    where: { id: Number(folderId) },
+    data: { foldername: foldername }
+  });
+
+}  
+
 export {
   insertUser, 
   createUser,
@@ -98,6 +107,7 @@ export {
   getFiles,
   createFolder,
   getFolder,
-  getFolders
+  getFolders,
+  updateFolder
 }
 

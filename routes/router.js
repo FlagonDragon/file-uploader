@@ -43,6 +43,10 @@ router.post("/add-folder", controller.addFolderPost);
 
 router.get("/folder/:folderId", controller.folderGet);
 
+router.get("/folder/:folderId/update", controller.updateFolderGet);
+router.post("/folder/:folderId/update", controller.updateFolderPost);
+
+
 
 
 
