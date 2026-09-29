@@ -6,6 +6,8 @@ async function homeGet(req, res) {
 
     const users = await db.getUsers();
 
+    const folders = await db.getFolders();
+
     users.forEach(user => {
         console.log(user.username);
     });
@@ -14,7 +16,7 @@ async function homeGet(req, res) {
 
     // res.send('Homepage');
 
-    res.render("homeView", {data: users});
+    res.render("homeView", { users: users, folders: folders });
 
 };
 
@@ -89,6 +91,33 @@ function uploadPost(req, res) {
 
 };
 
+function addFolderGet(req, res) {
+
+    res.render("addFolderView", { user: req.user });
+
+};
+
+const addFolderPost = [
+    validateUser = [body("foldername").trim().isLength({ max: 50 }).withMessage(`Foldername must be at most 50 characters`)],
+    async (req, res) => {
+
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+
+            return res.status(400).render("addFolderView", {errors: errors.array()});
+
+        }
+
+        const { foldername } = matchedData(req);
+
+        await db.createFolder(foldername);
+
+        res.redirect("/");
+
+    }
+];
+
 module.exports = {
     homeGet,
     infoGet,
@@ -97,5 +126,7 @@ module.exports = {
     logInGet,
     logOutGet,
     uploadGet,
-    uploadPost
+    uploadPost,
+    addFolderGet,
+    addFolderPost
 };

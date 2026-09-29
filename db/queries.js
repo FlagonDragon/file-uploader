@@ -45,10 +45,32 @@ async function getUsers() {
   
 }
 
+async function createFolder(foldername) {
+
+  const folder = await prisma.folder.create({
+    data: {
+      foldername: `${foldername}`,
+    },
+  });
+
+  console.log("Created folder:", folder);
+  
+}
+
+async function getFolders() {
+
+  const folders = await prisma.folder.findMany();
+
+  return folders;
+  
+}
+
 export {
   getData, 
   insertUser, 
   createUser,
-  getUsers
+  getUsers,
+  createFolder,
+  getFolders
 }
 

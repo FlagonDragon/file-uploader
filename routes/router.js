@@ -38,6 +38,9 @@ router.get("/log-out", controller.logOutGet);
 router.get("/upload", controller.uploadGet);
 router.post("/upload", upload.single('myfile'), controller.uploadPost);
 
+router.get("/add-folder", controller.addFolderGet);
+router.post("/add-folder", controller.addFolderPost);
+
 
 
 module.exports = router;

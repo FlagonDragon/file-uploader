@@ -14,8 +14,8 @@ datasource db {
 
 model User { 
   id    Int     @id @default(autoincrement()) 
-  username String?  
-  password  String?
+  username String  
+  password  String
 }
 
 model Session {
@@ -23,4 +23,17 @@ model Session {
   sid       String   @unique
   data      String
   expiresAt   DateTime
+}
+
+model Folder {
+  id    Int     @id @default(autoincrement()) 
+  foldername String
+  Files File[]
+}
+
+model File {
+  id    Int     @id @default(autoincrement()) 
+  filename String 
+  folder Folder @relation(fields: [folderId], references: [id])
+  folderId Int
 }

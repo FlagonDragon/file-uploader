@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Folder</title>
+  <link type="text/css" href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+  <h1>Add Folder</h1>
+
+  <%- include("partials/errors.ejs") %>
+
+  <form action="/add-folder" method="POST">
+    <label for="foldername">Folder Name:</label>
+    <input id="foldername" name="foldername" placeholder="Folder Name" type="text" />
+    <button type="submit">Add Folder</button>
+  </form>
+  
+</body>
+</html>
