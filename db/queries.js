@@ -45,17 +45,26 @@ async function getUsers() {
   
 }
 
-async function createFile(filename, filepath) {
+async function createFile(filename, filepath, filetype) {
 
   const file = await prisma.file.create({
     data: {
       filename: `${filename}`,
       filepath: `${filepath}`,
+      filetype: `${filetype}`,
       folderId: 1,
     },
   });
 
   console.log("Created file:", file);
+  
+}
+
+async function getFiles() {
+
+  const files = await prisma.file.findMany();
+
+  return files;
   
 }
 
@@ -85,6 +94,7 @@ export {
   createUser,
   getUsers,
   createFile,
+  getFiles,
   createFolder,
   getFolders
 }

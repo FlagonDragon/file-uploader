@@ -8,15 +8,15 @@ async function homeGet(req, res) {
 
     const folders = await db.getFolders();
 
-    users.forEach(user => {
-        console.log(user.username);
-    });
+    const files = await db.getFiles();
 
-    console.log(users);
+    // users.forEach(user => {
+    //     console.log(user.username);
+    // });
 
-    // res.send('Homepage');
+    console.log(files);
 
-    res.render("homeView", { users: users, folders: folders });
+    res.render("homeView", { users: users, files: files, folders: folders });
 
 };
 
@@ -111,7 +111,7 @@ const uploadPost = [
 
         console.log('filepath:'+filetype);
         
-        await db.createFile(filename, filetype);
+        await db.createFile(filename, filepath, filetype);
 
         res.status(200).send("file uploaded");
 
