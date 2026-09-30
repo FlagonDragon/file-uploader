@@ -8,7 +8,7 @@ async function homeGet(req, res) {
 
     const folders = await db.getFolders();
 
-    const files = await db.getFiles();
+    const files = await db.getAllFiles();
 
     // users.forEach(user => {
     //     console.log(user.username);
@@ -26,7 +26,7 @@ async function infoGet(req, res) {
 
     const folders = await db.getFolders();
 
-    const files = await db.getFiles();
+    const files = await db.getAllFiles();
 
     // users.forEach(user => {
     //     console.log(user.username);
@@ -161,9 +161,11 @@ async function folderGet(req, res) {
 
     const folder = await db.getFolder(folderId);
 
+    const files = await db.getFiles(folderId)
+
     console.log(folderId);
 
-    res.render("folderView", { folder: folder, folderId: folderId, user: req.user });
+    res.render("folderView", { folder: folder, folderId: folderId, files:files, user: req.user });
 
 };
 

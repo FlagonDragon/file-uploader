@@ -52,7 +52,17 @@ async function createFile(filename, filepath, filetype) {
   
 }
 
-async function getFiles() {
+async function getFiles(folderId) {
+
+  const files = await prisma.file.findMany({
+    where: { folderId: Number(folderId) },
+  });
+
+  return files;
+  
+}
+
+async function getAllFiles() {
 
   const files = await prisma.file.findMany();
 
@@ -113,6 +123,7 @@ export {
   getUsers,
   createFile,
   getFiles,
+  getAllFiles,
   createFolder,
   getFolder,
   getFolders,

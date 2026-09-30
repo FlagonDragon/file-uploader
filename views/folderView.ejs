@@ -11,15 +11,35 @@
 
       <h2>Folder</h2>
 
-          <p>
-            <a  href="/folder/<%=folderId%>/update">Update folder</a>
-          </p>
+      <p>
+        <a  href="/folder/<%=folderId%>/update">Update folder</a>
+      </p>
+
+      <p>
+        foldername: <%=folder.foldername%> (id: <%=folder.id%>)
+      </p>
+
+      <h4>Files</h4>
+
+          <% files.forEach(file => { %>
 
           <p>
-            foldername: <%=folder.foldername%> (id: <%=folder.id%>)
+            filename: <%=file.filename%> (id: <%=file.id%>)
+          </p>
+          <p>
+            filepath: <%=file.filepath%>
+          </p>
+          <p>
+            filetype: <%=file.filetype%>
+          </p>
+          <p>
+            folderid: <%=file.folderId%>
           </p>
 
         </a>
+
+      <% }); %>
+
 
     </div>
     
