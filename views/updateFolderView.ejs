@@ -12,9 +12,19 @@
 
   <form action="/folder/<%=folderId%>/update" method="POST">
     <label for="foldername">Folder Name:</label>
-    <input id="foldername" name="foldername" placeholder="Folder Name" type="text" />
+    <input id="foldername" name="foldername" placeholder="Folder Name" type="text" required/>
     <input type="hidden" name="folderId" id="folderId" value="<%=folderId%>">
     <button type="submit">Update</button>
+  </form>
+
+  <form action="/folder/<%=folderId%>/update" method="POST">
+    <label for="deleteData">Delete Folder: </label>
+    <select name="deleteData" id="deleteData" required>
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+    </select>
+    <input type="hidden" name="folderId" id="folderId" value="<%=folderId%>">
+    <button type="submit">Delete</button>
   </form>
 
 </body>

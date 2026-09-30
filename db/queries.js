@@ -97,7 +97,15 @@ async function updateFolder(folderId, foldername) {
     data: { foldername: foldername }
   });
 
-}  
+}
+
+async function deleteFolder(folderId) {
+
+  await prisma.folder.delete({
+    where: { id: Number(folderId) },
+  });
+
+}
 
 export {
   insertUser, 
@@ -108,6 +116,7 @@ export {
   createFolder,
   getFolder,
   getFolders,
-  updateFolder
+  updateFolder,
+  deleteFolder
 }
 

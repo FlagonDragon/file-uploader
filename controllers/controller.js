@@ -179,9 +179,17 @@ async function updateFolderGet(req, res) {
 
 async function updateFolderPost(req, res) {
 
-    const { folderId, foldername } = req.body;
+    const { folderId, foldername, deleteData } = req.body;
 
-    await db.updateFolder(folderId, foldername);
+    if (deleteData == 'yes') {
+
+        await db.deleteFolder(folderId);
+
+    } else if (deleteData == undefined) {
+
+        await db.updateFolder(folderId, foldername);
+
+    }
 
     res.redirect("/")
 
