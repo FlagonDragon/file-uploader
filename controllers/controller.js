@@ -14,7 +14,7 @@ async function homeGet(req, res) {
     //     console.log(user.username);
     // });
 
-    console.log(files);
+    // console.log(files);
 
     res.render("homeView", { users: users, files: files, folders: folders, user: req.user });
 
@@ -32,7 +32,7 @@ async function infoGet(req, res) {
     //     console.log(user.username);
     // });
 
-    console.log(files);
+    // console.log(files);
 
     res.render("infoView", { users: users, files: files, folders: folders, user: req.user });
 
@@ -91,7 +91,7 @@ function uploadGet(req, res) {
 
     const folderId = req.query.folder;
 
-    console.log('folderId (controllerGet): '+folderId);
+    // console.log('folderId (controllerGet): '+folderId);
     
     res.render("uploadView", { folderId: folderId, user: req.user });
 
@@ -169,7 +169,7 @@ async function folderGet(req, res) {
 
     const files = await db.getFiles(folderId)
 
-    console.log(folderId);
+    // console.log(folderId);
 
     res.render("folderView", { folder: folder, folderId: folderId, files:files, user: req.user });
 
@@ -179,7 +179,7 @@ async function updateFolderGet(req, res) {
 
     const { folderId } = req.params;
 
-    console.log(folderId);
+    // console.log(folderId);
 
     res.render("updateFolderView", { folderId: folderId, user: req.user });
 
@@ -193,7 +193,7 @@ const updateFolderPost = [
 
         if (!errors.isEmpty()) {
 
-            return res.status(400).render("addFolderView", {errors: errors.array()});
+            return res.status(400).render("updateFolderView", {errors: errors.array()});
 
         }
 
@@ -214,6 +214,18 @@ const updateFolderPost = [
     }
 ];
 
+async function fileGet(req, res) {
+
+    const { fileId } = req.params;
+
+    const file = await db.getFile(fileId)
+
+    // console.log(folderId);
+
+    res.render("fileView", { file: file, user: req.user });
+
+};
+
 module.exports = {
     homeGet,
     infoGet,
@@ -227,5 +239,6 @@ module.exports = {
     addFolderPost,
     folderGet,
     updateFolderGet,
-    updateFolderPost
+    updateFolderPost,
+    fileGet
 };

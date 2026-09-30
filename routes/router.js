@@ -46,8 +46,7 @@ router.get("/folder/:folderId", controller.folderGet);
 router.get("/folder/:folderId/update", controller.updateFolderGet);
 router.post("/folder/:folderId/update", controller.updateFolderPost);
 
-
-
-
+router.get("/folder/:folderId/file/:fileId", controller.fileGet);
+// router.post("/folder/:folderId/file/:fileId", controller.filePost);
 
 module.exports = router;

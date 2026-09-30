@@ -26,7 +26,7 @@
           <% files.forEach(file => { %>
 
           <p>
-            filename: <%=file.filename%> (id: <%=file.id%>)
+            filename: <a  href="/folder/<%=folder.id%>/file/<%=file.id%>"><%=file.filename%></a> (id: <%=file.id%>)
           </p>
           <p>
             filepath: <%=file.filepath%>
@@ -37,8 +37,6 @@
           <p>
             folderid: <%=file.folderId%>
           </p>
-
-        </a>
 
       <% }); %>
 

@@ -57,6 +57,16 @@ async function createFile(filename, filepath, filetype, folderId) {
   
 }
 
+async function getFile(fileId) {
+
+  const file = await prisma.file.findUnique({
+    where: { id: Number(fileId) },
+  });
+
+  return file;
+  
+}
+
 async function getFiles(folderId) {
 
   const files = await prisma.file.findMany({
@@ -127,6 +137,7 @@ export {
   createUser,
   getUsers,
   createFile,
+  getFile,
   getFiles,
   getAllFiles,
   createFolder,
