@@ -89,12 +89,16 @@ function logOutGet(req, res, next) {
 
 function uploadGet(req, res) {
 
-    res.render("uploadView", { user: req.user });
+    const folderId = req.query.folder;
+
+    console.log('folderId (controllerGet): '+folderId);
+    
+    res.render("uploadView", { folderId: folderId, user: req.user });
 
 };
 
 const uploadPost = [
-    validateUser = [body("filename").trim().isLength({ max: 50 }).withMessage(`Filename must be at most 50 characters`)],
+    validateUser = [body("filename").trim().isLength({ max: 50 }).withMessage(`Filename must be at most 50 characters`), body("folderId").trim()],
     async (req, res) => {
 
         const errors = validationResult(req);
@@ -105,7 +109,7 @@ const uploadPost = [
 
         }
 
-        const { filename } = matchedData(req);
+        const { filename, folderId } = matchedData(req);
 
         //req.file to access file through multer middleware
         //filename is direct from form body
@@ -120,10 +124,12 @@ const uploadPost = [
         console.log('filename:'+filename);
 
         console.log('filepath:'+filetype);
-        
-        await db.createFile(filename, filepath, filetype);
 
-        res.status(200).send("file uploaded");
+        console.log('folderId (controllerPost): '+folderId);
+        
+        await db.createFile(filename, filepath, filetype, folderId);
+        
+        res.redirect("/");
 
     }
 ];
@@ -179,23 +185,34 @@ async function updateFolderGet(req, res) {
 
 };
 
-async function updateFolderPost(req, res) {
+const updateFolderPost = [
+    validateUser = [body("folderId"), body("foldername").trim().isLength({ max: 50 }).withMessage(`Foldername must be at most 50 characters`), body("deleteData")],
+    async (req, res) => {
 
-    const { folderId, foldername, deleteData } = req.body;
+        const errors = validationResult(req);
 
-    if (deleteData == 'yes') {
+        if (!errors.isEmpty()) {
 
-        await db.deleteFolder(folderId);
+            return res.status(400).render("addFolderView", {errors: errors.array()});
 
-    } else if (deleteData == undefined) {
+        }
 
-        await db.updateFolder(folderId, foldername);
+        const { folderId, foldername, deleteData } = matchedData(req);
+
+        if (deleteData == 'yes') {
+
+            await db.deleteFolder(folderId);
+
+        } else if (deleteData == undefined) {
+
+            await db.updateFolder(folderId, foldername);
+
+        }
+
+        res.redirect("/")
 
     }
-
-    res.redirect("/")
-
-};
+];
 
 module.exports = {
     homeGet,

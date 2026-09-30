@@ -10,8 +10,16 @@
     <div class="container">
 
       <h2>Homepage</h2>
+
+      <% if (locals.user) {%>
+
+        <h4>Welcome, <%=locals.user.username%></h4>
+
+      <% } %>
   
       <h4>Folders</h4>
+
+      <a  href="/add-folder/">Add folder</a>
 
       <% folders.forEach(folder => { %>
 
