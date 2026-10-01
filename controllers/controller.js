@@ -227,7 +227,7 @@ async function fileGet(req, res) {
 };
 
 const filePost = [
-    validateUser = [body("fileId"), body("folderId"), body("deleteData")],
+    validateUser = [body("filename"), body("filetype"), body("fileId"), body("folderId"), body("filepath"),body("deleteData")],
     async (req, res) => {
 
         const errors = validationResult(req);
@@ -238,15 +238,31 @@ const filePost = [
 
         }
 
-        const { fileId, folderId, deleteData } = matchedData(req);
+        const { filename, filetype, fileId, folderId, filepath, deleteData } = matchedData(req);
 
         if (deleteData == 'yes') {
 
             await db.deleteFile(fileId);
 
-        }        
+            res.redirect(`/folder/${folderId}`);
 
-        res.redirect(`/folder/${folderId}`);
+            return;
+
+        } else if (deleteData == 'no') {  
+
+            return;
+        
+        } else {
+
+            console.log(filepath);
+
+            console.log(filename+filetype);
+
+            res.download(filepath, filename+filetype);
+
+            return;
+
+        }
 
     }
 ];

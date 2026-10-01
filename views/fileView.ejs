@@ -27,6 +27,16 @@
       </p>
 
       <form action="/folder/<%=folderId%>/file/<%=file.id%>" method="POST">
+        <input type="hidden" name="filename" id="filename" value="<%=file.filename%>">
+        <input type="hidden" name="filetype" id="filetype" value="<%=file.filetype%>">
+        <input type="hidden" name="fileId" id="fileId" value="<%=file.id%>">
+        <input type="hidden" name="folderId" id="folderId" value="<%=folderId%>">
+        <input type="hidden" name="filepath" id="filepath" value="<%=file.filepath%>">
+        <button type="submit">Download</button>
+      </form>
+
+
+      <form action="/folder/<%=folderId%>/file/<%=file.id%>" method="POST">
         <label for="deleteData">Delete File: </label>
         <select name="deleteData" id="deleteData" required>
             <option value="no">No</option>
@@ -34,6 +44,7 @@
         </select>
         <input type="hidden" name="fileId" id="fileId" value="<%=file.id%>">
         <input type="hidden" name="folderId" id="folderId" value="<%=folderId%>">
+        <input type="hidden" name="filepath" id="filepath" value="<%=file.filepath%>">
         <button type="submit">Delete</button>
       </form>
 
