@@ -132,6 +132,14 @@ async function deleteFolder(folderId) {
 
 }
 
+async function deleteFile(fileId) {
+
+  await prisma.file.delete({
+    where: { id: Number(fileId) },
+  });
+
+}
+
 export {
   insertUser, 
   createUser,
@@ -144,6 +152,7 @@ export {
   getFolder,
   getFolders,
   updateFolder,
-  deleteFolder
+  deleteFolder,
+  deleteFile
 }
 

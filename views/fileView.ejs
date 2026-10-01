@@ -11,6 +11,8 @@
 
       <h2>File</h2>
 
+      <%- include("partials/errors.ejs") %>
+
       <p>
         filename: <%=file.filename%> (id: <%=file.id%>)
       </p>
@@ -23,6 +25,17 @@
       <p>
         folderid: <%=file.folderId%>
       </p>
+
+      <form action="/folder/<%=folderId%>/file/<%=file.id%>" method="POST">
+        <label for="deleteData">Delete File: </label>
+        <select name="deleteData" id="deleteData" required>
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select>
+        <input type="hidden" name="fileId" id="fileId" value="<%=file.id%>">
+        <input type="hidden" name="folderId" id="folderId" value="<%=folderId%>">
+        <button type="submit">Delete</button>
+      </form>
 
     </div>
     

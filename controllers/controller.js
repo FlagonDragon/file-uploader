@@ -216,15 +216,40 @@ const updateFolderPost = [
 
 async function fileGet(req, res) {
 
-    const { fileId } = req.params;
+    const { folderId, fileId } = req.params;
 
-    const file = await db.getFile(fileId)
+    console.log(folderId, fileId);
 
-    // console.log(folderId);
+    const file = await db.getFile(fileId) 
 
-    res.render("fileView", { file: file, user: req.user });
+    res.render("fileView", { file: file, folderId: folderId, user: req.user });
 
 };
+
+const filePost = [
+    validateUser = [body("fileId"), body("folderId"), body("deleteData")],
+    async (req, res) => {
+
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+
+            return res.status(400).render("fileView", {errors: errors.array()});
+
+        }
+
+        const { fileId, folderId, deleteData } = matchedData(req);
+
+        if (deleteData == 'yes') {
+
+            await db.deleteFile(fileId);
+
+        }        
+
+        res.redirect(`/folder/${folderId}`);
+
+    }
+];
 
 module.exports = {
     homeGet,
@@ -240,5 +265,6 @@ module.exports = {
     folderGet,
     updateFolderGet,
     updateFolderPost,
-    fileGet
+    fileGet,
+    filePost
 };
