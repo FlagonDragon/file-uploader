@@ -117,21 +117,24 @@ const uploadPost = [
         //filename is direct from form body
     
         const filepath = req.file.path
-        console.log(filepath);
-
-        console.log(req.file);
 
         const periodChar = filepath.indexOf(".");
         
         const filetype = filepath.slice(periodChar);
 
-        // console.log('filename:'+filename);
+        const mimetype = req.file.mimetype;
 
-        // console.log('filepath:'+filetype);
+        const filesize = req.file.size/1000+'MB';
 
-        // console.log('folderId (controllerPost): '+folderId);
+        console.log(req.file);        
+        console.log('filename: '+filename);
+        console.log('filepath: '+filepath);
+        console.log('filetype: '+filetype);
+        console.log('mimetype: '+mimetype);
+        console.log('filesize: '+filesize);
+        console.log('folderId: '+folderId);
         
-        await db.createFile(filename, filepath, filetype, folderId);
+        await db.createFile(filename, filepath, filetype, mimetype, filesize, folderId);
         
         res.redirect("/");
 
