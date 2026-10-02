@@ -37,7 +37,7 @@ async function getUsers() {
   
 }
 
-async function createFile(filename, filepath, filetype, mimetype, filesize, folderId) {
+async function createFile(filename, filepath, filetype, mimetype, filesize, uploadDate, folderId) {
 
   const folderNum = Number(folderId)
 
@@ -51,6 +51,7 @@ async function createFile(filename, filepath, filetype, mimetype, filesize, fold
       filetype: filetype,
       mimetype: mimetype,
       filesize: filesize,
+      uploadDate: uploadDate,
       folderId: folderNum,
     },
   });

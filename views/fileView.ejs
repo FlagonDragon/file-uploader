@@ -29,6 +29,9 @@
         filesize: <%=file.filesize%>
       </p>
       <p>
+        uploadDate: <%=file.uploadDate%>
+      </p>
+      <p>
         folderid: <%=file.folderId%>
       </p>
 
@@ -40,9 +43,6 @@
         <input type="hidden" name="filepath" id="filepath" value="<%=file.filepath%>">
         <button type="submit">Download</button>
       </form>
-
-      <a href="https://res.cloudinary.com/z5po8wh3/image/upload/v1790840257/foxWide.jpg" download="my-image.jpg"> DOWNLOAD TEST</a>
-
 
       <form action="/folder/<%=folderId%>/file/<%=file.id%>" method="POST">
         <label for="deleteData">Delete File: </label>

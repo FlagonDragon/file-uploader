@@ -126,6 +126,8 @@ const uploadPost = [
 
         const filesize = req.file.size/1000+'MB';
 
+        const uploadDate = new Date();
+
         console.log(req.file);        
         console.log('filename: '+filename);
         console.log('filepath: '+filepath);
@@ -134,7 +136,7 @@ const uploadPost = [
         console.log('filesize: '+filesize);
         console.log('folderId: '+folderId);
         
-        await db.createFile(filename, filepath, filetype, mimetype, filesize, folderId);
+        await db.createFile(filename, filepath, filetype, mimetype, filesize, uploadDate, folderId);
         
         res.redirect("/");
 

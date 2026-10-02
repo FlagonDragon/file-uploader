@@ -37,7 +37,8 @@ model File {
   filepath String
   filetype String 
   mimetype String 
-  filesize String 
+  filesize String
+  uploadDate DateTime
   folder Folder @relation(fields: [folderId], references: [id])
   folderId Int
 }
