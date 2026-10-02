@@ -1,5 +1,7 @@
 const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
+const http = require('http');
+const https = require('https');
 const { body, validationResult, matchedData } = require("express-validator");
 
 async function homeGet(req, res) {
@@ -32,7 +34,7 @@ async function infoGet(req, res) {
     //     console.log(user.username);
     // });
 
-    // console.log(files);
+    console.log(files);
 
     res.render("infoView", { users: users, files: files, folders: folders, user: req.user });
 
@@ -117,15 +119,17 @@ const uploadPost = [
         const filepath = req.file.path
         console.log(filepath);
 
+        console.log(req.file);
+
         const periodChar = filepath.indexOf(".");
         
         const filetype = filepath.slice(periodChar);
 
-        console.log('filename:'+filename);
+        // console.log('filename:'+filename);
 
-        console.log('filepath:'+filetype);
+        // console.log('filepath:'+filetype);
 
-        console.log('folderId (controllerPost): '+folderId);
+        // console.log('folderId (controllerPost): '+folderId);
         
         await db.createFile(filename, filepath, filetype, folderId);
         
@@ -254,11 +258,25 @@ const filePost = [
         
         } else {
 
+            // this is download button response
+
             console.log(filepath);
 
             console.log(filename+filetype);
 
-            res.download(filepath, filename+filetype);
+            // res.download("https://res.cloudinary.com/z5po8wh3/image/upload/v1790840257/foxWide.jpg", filename+filetype);
+
+            // https.get("https://res.cloudinary.com/z5po8wh3/image/upload/v1790840257/foxWide.jpg", function(file) {
+            //     file.pipe(res);
+            // });
+
+            // https.get is base function to get image from link.
+            // Then res.set content disposition to "attachment" trigges asset download (rather than redirecting to it) and names it
+            // Then .pipe works with .get to read from source and write to target
+            https.get("https://res.cloudinary.com/z5po8wh3/image/upload/v1790840257/foxWide.jpg", function (file) {
+                res.set('Content-disposition', 'attachment; filename=' + encodeURI(filename+filetype));
+                file.pipe(res);
+            });
 
             return;
 
