@@ -24,7 +24,7 @@ let storage = multer.diskStorage({
 
 const upload = multer({ 
   storage: storage,
-  // limits: { fileSize: 10000000 }
+  limits: { fileSize: 10000   }
 })
 
 router.get("/", controller.homeGet);
