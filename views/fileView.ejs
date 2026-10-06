@@ -40,10 +40,10 @@
 
       <form action="/folder/<%=folderId%>/file/<%=file.id%>" method="POST">
         <input type="hidden" name="filename" id="filename" value="<%=file.filename%>">
+        <input type="hidden" name="fileUrl" id="fileUrl" value="<%=file.fileUrl%>">
         <input type="hidden" name="filetype" id="filetype" value="<%=file.filetype%>">
         <input type="hidden" name="fileId" id="fileId" value="<%=file.id%>">
         <input type="hidden" name="folderId" id="folderId" value="<%=folderId%>">
-        <input type="hidden" name="filepath" id="filepath" value="<%=file.filepath%>">
         <button type="submit">Download</button>
       </form>
 
@@ -58,6 +58,9 @@
         <input type="hidden" name="filepath" id="filepath" value="<%=file.filepath%>">
         <button type="submit">Delete</button>
       </form>
+
+      <a href="/">Back to home</a>
+      <a href="/folder/<%=folderId%>">Back to folder</a>
 
     </div>
     

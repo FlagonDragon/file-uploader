@@ -1,6 +1,6 @@
 const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
-const https = require('https');
+const http = require('http');
 const { body, validationResult, matchedData } = require("express-validator");
 
 async function homeGet(req, res) {
@@ -117,9 +117,6 @@ const uploadPost = [
 
         console.log(filename);
         console.log(folderId);
-        // console.log(req.file);
-    
-        //FIELDS: filename, originalname, fileurl, filetype, mimetype, filesize, uploadDate, folderid (or folderId?)
 
         const originalname = req.file.originalname
 
@@ -249,7 +246,7 @@ async function fileGet(req, res) {
 };
 
 const filePost = [
-    validateUser = [body("filename"), body("filetype"), body("fileId"), body("folderId"), body("filepath"),body("deleteData")],
+    validateUser = [body("filename"), body("fileUrl"), body("filetype"), body("fileId"), body("folderId"), body("deleteData")],
     async (req, res) => {
 
         const errors = validationResult(req);
@@ -260,7 +257,7 @@ const filePost = [
 
         }
 
-        const { filename, filetype, fileId, folderId, filepath, deleteData } = matchedData(req);
+        const { filename, fileUrl, filetype, fileId, folderId, deleteData } = matchedData(req);
 
         if (deleteData == 'yes') {
 
@@ -277,21 +274,17 @@ const filePost = [
         } else {
 
             // this is download button response
-
-            console.log(filepath);
-
+            console.log('DOWNLOADING...');
+            console.log('download name: ');
             console.log(filename+filetype);
-
-            // res.download("https://res.cloudinary.com/z5po8wh3/image/upload/v1790840257/foxWide.jpg", filename+filetype);
-
-            // https.get("https://res.cloudinary.com/z5po8wh3/image/upload/v1790840257/foxWide.jpg", function(file) {
-            //     file.pipe(res);
-            // });
+            console.log('fileUrl: ');
+            console.log(fileUrl);
 
             // https.get is base function to get image from link.
             // Then res.set content disposition to "attachment" trigges asset download (rather than redirecting to it) and names it
             // Then .pipe works with .get to read from source and write to target
-            https.get("https://res.cloudinary.com/z5po8wh3/image/upload/v1790840257/foxWide.jpg", function (file) {
+
+            http.get(`${fileUrl}`, function (file) {
                 res.set('Content-disposition', 'attachment; filename=' + encodeURI(filename+filetype));
                 file.pipe(res);
             });
