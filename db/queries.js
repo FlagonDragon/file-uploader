@@ -42,11 +42,10 @@ async function getUsers() {
 
 async function createFile(filename, originalname, fileUrl, filetype, mimetype, filesize, uploadDate, folderId) {
 
-  const folderNum = Number(folderId)
+  const folderNum = Number(folderId);
 
   console.log(folderNum);
   
-
   const file = await prisma.file.create({
     data: {
       filename: filename,
@@ -182,6 +181,34 @@ function makeid(length) {
     return result;
 }
 
+async function createLink(url, uploadDate, duration, folderId) {
+
+  const folderNum = Number(folderId);
+  const durationNum = Number(duration);
+  
+  const link = await prisma.link.create({
+    data: {
+      url: url,
+      uploadDate: uploadDate,
+      duration: durationNum,
+      folderId: folderNum,
+    },
+  });
+
+  console.log("Created link:", link);
+  
+}
+
+async function getLink(url) {
+
+  const link = await prisma.link.findUnique({
+    where: { url: url },
+  });
+
+  return link;
+  
+}
+
 export {
   insertUser, 
   createUser,
@@ -197,6 +224,8 @@ export {
   deleteFolder,
   deleteFile,
   cloudinaryUpload,
-  makeid
+  makeid,
+  createLink,
+  getLink
 }
 

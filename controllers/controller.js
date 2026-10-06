@@ -201,13 +201,16 @@ async function folderPost(req, res) {
 
     const uploadDate = new Date();
 
-    const generatedLink = db.makeid(20);
+    const generatedUrl = db.makeid(20);
 
-    console.log('link duration', linkDuration);
+    console.log('url: '+generatedUrl);
+    console.log('duration: '+linkDuration);
     console.log('folderId: '+folderId);
     console.log('uploadDate: '+uploadDate);
 
-    res.send(`Temporary link: ${generatedLink}`);
+    await db.createLink(generatedUrl, uploadDate, linkDuration, folderId );
+
+    res.send(`Temporary link: ${generatedUrl}`);
 
 };
 
@@ -317,8 +320,9 @@ async function shareGet(req, res) {
 
     const { link } = req.params;
 
-    console.log('share-folder');
-    console.log();
+    const dbLink = db.getLink(link);
+
+    console.log(dbLink);
 
     res.send(link)
 

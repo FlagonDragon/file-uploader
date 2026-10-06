@@ -43,3 +43,11 @@ model File {
   folder Folder @relation(fields: [folderId], references: [id])
   folderId Int
 }
+
+model Link {
+  id    Int     @id @default(autoincrement()) 
+  url String 
+  uploadDate DateTime
+  duration Int
+  folderId Int
+}
