@@ -2,30 +2,8 @@ const { Router } = require("express");
 const controller = require("../controllers/controller");
 const router = Router();
 const { body, validationResult } = require("express-validator");
-
-const multer  = require('multer')
-
-// Source - https://stackoverflow.com/a/40988346
-// Posted by VISHNU
-// Retrieved 2026-09-26, License - CC BY-SA 3.0
-
-// diskstorage function is used to customize file name so that it's composed of field name + file extension
-
-let storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function (req, file, cb) {
-    let extArray = file.mimetype.split("/");
-    let extension = extArray[extArray.length - 1];
-    cb(null, file.fieldname + '-' + Date.now()+ '.' +extension)
-  }
-})
-
-const upload = multer({ 
-  storage: storage,
-  limits: { fileSize: 10000   }
-})
+const cloudinary = require("../utils/cloudinary");
+const upload = require("../middleware/multer");
 
 router.get("/", controller.homeGet);
 
@@ -39,7 +17,24 @@ router.get("/log-in", controller.logInGet);
 router.get("/log-out", controller.logOutGet);
 
 router.get("/upload", controller.uploadGet);
-router.post("/upload", upload.single('myfile'), controller.uploadPost);
+router.post("/upload", upload.single('myfile'), function (req, res) {
+  console.log(req.file);
+  cloudinary.uploader.upload(req.file.path, function (err, result){
+    if(err) {
+      console.log(err);
+      return res.status(500).json({
+        success: false,
+        message: "Error"
+      })
+    }
+
+    res.status(200).json({
+      success: true,
+      message:"Uploaded!",
+      data: result
+    })
+  })
+});
 
 router.get("/add-folder", controller.addFolderGet);
 router.post("/add-folder", controller.addFolderPost);

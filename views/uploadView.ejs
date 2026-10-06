@@ -9,15 +9,11 @@
   
   <h1>Upload</h1>
 
-  <%- include("partials/errors.ejs") %>
-
   <form action="/upload" method="POST" enctype="multipart/form-data">
     <label for="myfile">Select a file:</label>
     <input type="file" id="myfile" name="myfile">
-    <label for="filename">File Name:</label>
-    <input id="filename" name="filename" placeholder="File Name" type="text" />
-    <input id="folderId" name="folderId" value="<%=folderId%>" type="hidden" />
     <button type="submit">Upload</button>
   </form>
+  
 </body>
 </html>
