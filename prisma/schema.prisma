@@ -34,7 +34,8 @@ model Folder {
 model File {
   id    Int     @id @default(autoincrement()) 
   filename String 
-  filepath String
+  originalname String
+  fileUrl String
   filetype String 
   mimetype String 
   filesize String

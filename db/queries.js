@@ -40,7 +40,7 @@ async function getUsers() {
   
 }
 
-async function createFile(filename, filepath, filetype, mimetype, filesize, uploadDate, folderId) {
+async function createFile(filename, originalname, fileUrl, filetype, mimetype, filesize, uploadDate, folderId) {
 
   const folderNum = Number(folderId)
 
@@ -50,7 +50,8 @@ async function createFile(filename, filepath, filetype, mimetype, filesize, uplo
   const file = await prisma.file.create({
     data: {
       filename: filename,
-      filepath: filepath,
+      originalname: originalname,
+      fileUrl: fileUrl,
       filetype: filetype,
       mimetype: mimetype,
       filesize: filesize,

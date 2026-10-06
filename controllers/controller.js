@@ -117,39 +117,41 @@ const uploadPost = [
 
         console.log(filename);
         console.log(folderId);
-        console.log(req.file);
+        // console.log(req.file);
     
+        //FIELDS: filename, originalname, fileurl, filetype, mimetype, filesize, uploadDate, folderid (or folderId?)
+
+        const originalname = req.file.originalname
+
         const filepath = req.file.path
 
-        //FIELDS: filename, originalname, fileurl, mimetype, filesize, uploadDate, folderid (or folderId?)
-
-        // const periodChar = filepath.indexOf(".");
+        const periodChar = filepath.indexOf(".");
         
-        // const filetype = filepath.slice(periodChar);
+        const filetype = filepath.slice(periodChar);
 
-        // const mimetype = req.file.mimetype;
+        const mimetype = req.file.mimetype;
 
-        // const filesize = req.file.size/1000+'MB';
+        const filesize = req.file.size/1000+'MB';
 
-        // const uploadDate = new Date();
-
-        // console.log(req.file);        
-        // console.log('filename: '+filename);
-        // console.log('filepath: '+filepath);
-        // console.log('filetype: '+filetype);
-        // console.log('mimetype: '+mimetype);
-        // console.log('filesize: '+filesize);
-        // console.log('folderId: '+folderId);
+        const uploadDate = new Date();
 
         const cloudUpload = await db.cloudinaryUpload(res, filepath);
 
-        console.log(cloudUpload.url);
+        const fileUrl = cloudUpload.url;
 
-        res.send('success')
+        console.log(req.file);        
+        console.log('filename: '+filename);
+        console.log('originalname: '+originalname);
+        console.log('fileUrl: '+fileUrl);
+        console.log('filetype: '+filetype);
+        console.log('mimetype: '+mimetype);
+        console.log('filesize: '+filesize);
+        console.log('uploadDate: '+uploadDate);
+        console.log('folderId: '+folderId);
         
-        // await db.createFile(filename, filepath, filetype, mimetype, filesize, uploadDate, folderId);
+        await db.createFile(filename, originalname, fileUrl, filetype, mimetype, filesize, uploadDate, folderId);
         
-        // res.redirect("/");
+        res.redirect(`/folder/${folderId}`);
 
     }
 ];
