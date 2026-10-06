@@ -17,24 +17,25 @@ router.get("/log-in", controller.logInGet);
 router.get("/log-out", controller.logOutGet);
 
 router.get("/upload", controller.uploadGet);
-router.post("/upload", upload.single('myfile'), function (req, res) {
-  console.log(req.file);
-  cloudinary.uploader.upload(req.file.path, function (err, result){
-    if(err) {
-      console.log(err);
-      return res.status(500).json({
-        success: false,
-        message: "Error"
-      })
-    }
+router.post("/upload", controller.uploadPost);
+// router.post("/upload", upload.single('myfile'), function (req, res) {
+//   console.log(req.file);
+//   cloudinary.uploader.upload(req.file.path, function (err, result){
+//     if(err) {
+//       console.log(err);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Error"
+//       })
+//     }
 
-    res.status(200).json({
-      success: true,
-      message:"Uploaded!",
-      data: result
-    })
-  })
-});
+//     res.status(200).json({
+//       success: true,
+//       message:"Uploaded!",
+//       data: result
+//     })
+//   })
+// });
 
 router.get("/add-folder", controller.addFolderGet);
 router.post("/add-folder", controller.addFolderPost);

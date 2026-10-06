@@ -143,6 +143,31 @@ async function deleteFile(fileId) {
 
 }
 
+function cloudinaryUpload(filepath) {
+
+  cloudinary.uploader.upload(filepath, function (err, result){
+
+    if(err) {
+
+      console.log(err);
+
+      return res.status(500).json({
+        success: false,
+        message: "Error"
+      })
+
+    }
+
+    res.status(200).json({
+      success: true,
+      message:"Uploaded!",
+      data: result
+    })
+    
+  });
+          
+}
+
 export {
   insertUser, 
   createUser,
@@ -156,6 +181,7 @@ export {
   getFolders,
   updateFolder,
   deleteFolder,
-  deleteFile
+  deleteFile,
+  cloudinaryUpload
 }
 

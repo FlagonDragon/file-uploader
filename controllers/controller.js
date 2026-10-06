@@ -1,8 +1,9 @@
 const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
-const http = require('http');
 const https = require('https');
 const { body, validationResult, matchedData } = require("express-validator");
+const cloudinary = require("../utils/cloudinary");
+const upload = require("../middleware/multer");
 
 async function homeGet(req, res) {
 
@@ -114,31 +115,36 @@ const uploadPost = [
         const { filename, folderId } = matchedData(req);
 
         //req.file to access file through multer middleware
-        //filename is direct from form body
+        //filename and folderId are direct from form body
+
+        console.log(filename);
+        console.log(req.file);
     
         const filepath = req.file.path
 
-        const periodChar = filepath.indexOf(".");
+        // const periodChar = filepath.indexOf(".");
         
-        const filetype = filepath.slice(periodChar);
+        // const filetype = filepath.slice(periodChar);
 
-        const mimetype = req.file.mimetype;
+        // const mimetype = req.file.mimetype;
 
-        const filesize = req.file.size/1000+'MB';
+        // const filesize = req.file.size/1000+'MB';
 
-        const uploadDate = new Date();
+        // const uploadDate = new Date();
 
-        console.log(req.file);        
-        console.log('filename: '+filename);
-        console.log('filepath: '+filepath);
-        console.log('filetype: '+filetype);
-        console.log('mimetype: '+mimetype);
-        console.log('filesize: '+filesize);
-        console.log('folderId: '+folderId);
+        // console.log(req.file);        
+        // console.log('filename: '+filename);
+        // console.log('filepath: '+filepath);
+        // console.log('filetype: '+filetype);
+        // console.log('mimetype: '+mimetype);
+        // console.log('filesize: '+filesize);
+        // console.log('folderId: '+folderId);
+
+        db.cloudinaryUpload(filepath);
         
-        await db.createFile(filename, filepath, filetype, mimetype, filesize, uploadDate, folderId);
+        // await db.createFile(filename, filepath, filetype, mimetype, filesize, uploadDate, folderId);
         
-        res.redirect("/");
+        // res.redirect("/");
 
     }
 ];
