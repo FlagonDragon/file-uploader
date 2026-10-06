@@ -2,8 +2,6 @@ const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
 const https = require('https');
 const { body, validationResult, matchedData } = require("express-validator");
-const cloudinary = require("../utils/cloudinary");
-const upload = require("../middleware/multer");
 
 async function homeGet(req, res) {
 
@@ -118,9 +116,12 @@ const uploadPost = [
         //filename and folderId are direct from form body
 
         console.log(filename);
+        console.log(folderId);
         console.log(req.file);
     
         const filepath = req.file.path
+
+        //FIELDS: filename, originalname, fileurl, mimetype, filesize, uploadDate, folderid (or folderId?)
 
         // const periodChar = filepath.indexOf(".");
         
@@ -140,7 +141,11 @@ const uploadPost = [
         // console.log('filesize: '+filesize);
         // console.log('folderId: '+folderId);
 
-        db.cloudinaryUpload(filepath);
+        const cloudUpload = await db.cloudinaryUpload(res, filepath);
+
+        console.log(cloudUpload.url);
+
+        res.send('success')
         
         // await db.createFile(filename, filepath, filetype, mimetype, filesize, uploadDate, folderId);
         

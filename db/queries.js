@@ -1,6 +1,9 @@
 import { pool } from "./pool.js";
 import { prisma } from "../lib/prisma.js";
 
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const cloudinary = require("../utils/cloudinary.js");
 
 async function insertUser(fullname, username, password) {
 
@@ -143,9 +146,9 @@ async function deleteFile(fileId) {
 
 }
 
-function cloudinaryUpload(filepath) {
+function cloudinaryUpload(res, filepath) {
 
-  cloudinary.uploader.upload(filepath, function (err, result){
+  return cloudinary.uploader.upload(filepath, function (err, result){
 
     if(err) {
 
@@ -158,11 +161,7 @@ function cloudinaryUpload(filepath) {
 
     }
 
-    res.status(200).json({
-      success: true,
-      message:"Uploaded!",
-      data: result
-    })
+    return result;
     
   });
           
