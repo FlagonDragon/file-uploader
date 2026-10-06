@@ -2,6 +2,7 @@ const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
 const http = require('http');
 const { body, validationResult, matchedData } = require("express-validator");
+const { log } = require("console");
 
 async function homeGet(req, res) {
 
@@ -194,6 +195,22 @@ async function folderGet(req, res) {
 
 };
 
+async function folderPost(req, res) {
+
+    const { linkDuration, folderId } = req.body;
+
+    const uploadDate = new Date();
+
+    const generatedLink = db.makeid(20);
+
+    console.log('link duration', linkDuration);
+    console.log('folderId: '+folderId);
+    console.log('uploadDate: '+uploadDate);
+
+    res.send(`Temporary link: ${generatedLink}`);
+
+};
+
 async function updateFolderGet(req, res) {
 
     const { folderId } = req.params;
@@ -296,6 +313,17 @@ const filePost = [
     }
 ];
 
+async function shareGet(req, res) {
+
+    const { link } = req.params;
+
+    console.log('share-folder');
+    console.log();
+
+    res.send(link)
+
+};
+
 module.exports = {
     homeGet,
     infoGet,
@@ -308,8 +336,10 @@ module.exports = {
     addFolderGet,
     addFolderPost,
     folderGet,
+    folderPost,
     updateFolderGet,
     updateFolderPost,
     fileGet,
-    filePost
+    filePost,
+    shareGet
 };
