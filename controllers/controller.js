@@ -2,7 +2,6 @@ const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
 const http = require('http');
 const { body, validationResult, matchedData } = require("express-validator");
-const { log } = require("console");
 
 async function homeGet(req, res) {
 
@@ -11,12 +10,6 @@ async function homeGet(req, res) {
     const folders = await db.getFolders();
 
     const files = await db.getAllFiles();
-
-    // users.forEach(user => {
-    //     console.log(user.username);
-    // });
-
-    // console.log(files);
 
     res.render("homeView", { users: users, files: files, folders: folders, user: req.user });
 
@@ -29,12 +22,6 @@ async function infoGet(req, res) {
     const folders = await db.getFolders();
 
     const files = await db.getAllFiles();
-
-    // users.forEach(user => {
-    //     console.log(user.username);
-    // });
-
-    console.log(files);
 
     res.render("infoView", { users: users, files: files, folders: folders, user: req.user });
 
@@ -62,8 +49,6 @@ const signUpPost = [
         const { username, password } = matchedData(req);
 
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        // await db.insertUser(fullname, username, hashedPassword);
 
         await db.createUser(username, hashedPassword);
 
@@ -118,9 +103,6 @@ const uploadPost = [
 
         //req.file to access file through multer middleware
         //filename and folderId are direct from form body
-
-        console.log(filename);
-        console.log(folderId);
 
         const originalname = req.file.originalname
 
@@ -192,8 +174,6 @@ async function folderGet(req, res) {
 
     const files = await db.getFiles(folderId)
 
-    // console.log(folderId);
-
     res.render("folderView", { folder: folder, folderId: folderId, files:files, user: req.user });
 
 };
@@ -220,8 +200,6 @@ async function folderPost(req, res) {
 async function updateFolderGet(req, res) {
 
     const { folderId } = req.params;
-
-    // console.log(folderId);
 
     res.render("updateFolderView", { folderId: folderId, user: req.user });
 
