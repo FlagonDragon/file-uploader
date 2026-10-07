@@ -210,7 +210,7 @@ async function folderPost(req, res) {
 
     await db.createLink(generatedUrl, uploadDate, linkDuration, folderId );
 
-    res.send(`Temporary link: ${generatedUrl}`);
+    res.send(`Temporary link: /share/${generatedUrl}`);
 
 };
 
@@ -320,11 +320,22 @@ async function shareGet(req, res) {
 
     const { link } = req.params;
 
-    const dbLink = db.getLink(link);
+    const dbLink = await db.getLink(link);
 
     console.log(dbLink);
 
-    res.send(link)
+    let currentDate = new Date();
+
+    let milisecsTranscurred = currentDate - dbLink.uploadDate;
+
+    let daysTranscurred = milisecsTranscurred/1000/60/60/24;
+
+    if (daysTranscurred > dbLink.duration) {
+        res.send('Link has expired');
+        return;
+    }
+
+    res.redirect(`/folder/${dbLink.folderId}`);
 
 };
 
