@@ -15,18 +15,6 @@ async function homeGet(req, res) {
 
 };
 
-async function infoGet(req, res) {
-
-    const users = await db.getUsers();
-
-    const folders = await db.getFolders();
-
-    const files = await db.getAllFiles();
-
-    res.render("infoView", { users: users, files: files, folders: folders, user: req.user });
-
-};
-
 function signUpGet(req, res) {
 
     res.render("signUpView", { user: req.user });
@@ -193,7 +181,7 @@ async function folderPost(req, res) {
 
     await db.createLink(generatedUrl, uploadDate, linkDuration, folderId );
 
-    res.send(`Temporary link: /share/${generatedUrl}`);
+    res.render("linkView", { generatedUrl: generatedUrl, user: req.user });
 
 };
 
@@ -322,7 +310,6 @@ async function shareGet(req, res) {
 
 module.exports = {
     homeGet,
-    infoGet,
     signUpGet,
     signUpPost,
     logInGet,
