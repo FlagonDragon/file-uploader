@@ -11,6 +11,8 @@
 
   <%- include("partials/errors.ejs") %>
 
+  <% if (locals.user) {%>
+
   <form action="/upload" method="POST" enctype="multipart/form-data">
     <label for="myfile">Select a file:</label>
     <input type="file" id="myfile" name="myfile">
@@ -19,6 +21,15 @@
     <input id="folderId" name="folderId" value="<%=folderId%>" type="hidden" />
     <button type="submit">Upload</button>
   </form>
+
+  <% } else {%>
+
+  <h3>Must be logged in to upload</h3> 
+  <a href="/log-in/?from=upload&folder=<%=folderId%>">Log in</a>
+  <a href="/sign-up/?from=upload&folder=<%=folderId%>">Sign up</a>
+
+  <% } %>
+
   
 </body>
 </html>

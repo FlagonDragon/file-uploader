@@ -7,19 +7,17 @@
 
 </head>
 <body>
-  <% if (locals.user) {%>
-    <h1>WELCOME BACK <%= user.username %></h1>
-    <a href="/">Home</a>
-    <a href="/log-out">Log out</a>
-  <% } else { %>
     <h1>Log in</h1>
     <form action="/log-in" method="POST">
       <label for="username">Username</label>
       <input id="username" name="username" placeholder="username" type="text" />
       <label for="password">Password</label>
       <input id="password" name="password" placeholder="password" type="password" />
+      <% if (from && folder) { %>
+      <input type="hidden" name="from" id="from" value="<%=from%>">
+      <input type="hidden" name="folder" id="folder" value="<%=folder%>">
+      <% } %>
       <button type="submit">Log In</button>
     </form>
-  <%}%>
 </body>
 </html>

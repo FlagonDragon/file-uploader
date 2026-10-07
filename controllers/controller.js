@@ -74,7 +74,10 @@ const signUpPost = [
 
 function logInGet(req, res) {
 
-    res.render("logInView", { user: req.user });
+    console.log(req.query);
+    
+
+    res.render("logInView", { user: req.user, from: req.query.from, folder: req.query.folder });
 
 };
 
