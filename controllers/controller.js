@@ -5,13 +5,9 @@ const { body, validationResult, matchedData } = require("express-validator");
 
 async function homeGet(req, res) {
 
-    const users = await db.getUsers();
-
     const folders = await db.getFolders();
 
-    const files = await db.getAllFiles();
-
-    res.render("homeView", { users: users, files: files, folders: folders, user: req.user });
+    res.render("homeView", { folders: folders, user: req.user });
 
 };
 
